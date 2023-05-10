@@ -1,0 +1,136 @@
+html,body{
+	height:100%;
+	width:100%;
+	margin:0;
+	padding:0;
+	background-color:#f0f8ff;
+	font-family: 'M PLUS 1', sans-serif;
+}
+header{
+	background-color:#cce7ff;
+	color:#33a0ff;
+	padding:2% 15%;
+	font-size:230%;
+	position:relative;
+}
+a{
+	color:#00bfff;
+	text-decoration: none;
+}
+#section-1{
+	margin:7% 0;
+}
+#section-2{
+	margin:7% 15%;
+	display:flex;
+	justify-content: space-evenly;
+}
+#section-3{
+	margin:0 0 7% 0;
+}
+#section-4{
+	background-color:#33a0ff;
+	color:white;
+	padding:30 15%;
+	display:flex;
+	justify-content: space-between;
+}
+h1{
+	margin:0% 15% 5%;
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+	border-bottom-right-radius: 15px;
+	border-bottom-left-radius: 15px;
+	background-color:#66b8ff;
+	padding:10 30;
+	color:#fff;
+	font-size:180%;
+}
+div.ach-title{
+	color:#ff3333;
+	font-size:150%;
+	margin:-5 0 15 0;
+}
+div.list{
+	display:flex;
+	padding:0 15% 10 15%;
+	position:static;
+	background:#cce7ff;
+}
+a.list{
+	margin:0;
+	width:25%;
+	color:#151515;
+	text-align:center;
+	border:solid;
+	border-width:0 0 0 4;
+	border-color:#f0f8ff;
+}
+#list-last{
+	border-width:0 4 0 4;
+}
+p.image{
+	text-align:center;
+	margin:0 15%;
+}
+p.last{
+	font-size:150%;
+}
+img{
+	width:100%;
+}
+section.achievement{
+	display:flex;
+	justify-content: space-evenly;
+	padding:0 15% 6% 15%;
+	text-align:center;
+}
+div.recruiting{
+	margin:0 15%;
+	padding:10;
+	font-size:150%;
+	background-color:#ffc999;
+	text-align:center;
+}
+div.achievement{
+	width:24%;
+	padding:30 0;
+	background-color:#99ffc9;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+}
+div.ichiran{
+	display:flex;
+	flex-direction: column;
+   align-items: center;
+	width:16%;
+	text-align:center;
+	border-style:solid;
+	border-color:#252525;
+	border-width:1;
+	padding:20 20 0 20;
+}
+div.notice{
+	margin:0 15%;
+	padding:0 5%;
+}
+
+tr{
+	height:50;
+	font-size:140%;
+}
+td.date{
+	width:20%;
+}
+td.notice{
+	width:80%;
+}
+img.ichiran{
+	width:30%;
+}
+img.flame{
+	width:10%;
+	height:10%;
+}
