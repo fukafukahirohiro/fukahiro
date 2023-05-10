@@ -35,6 +35,16 @@ a{
 	display:flex;
 	justify-content: space-between;
 }
+#section-5{
+	margin:0 15%;
+}
+#nomar{
+	margin:0;
+}
+#aisastu{
+	display:flex;
+	align-items: center;
+}
 h1{
 	margin:0% 15% 5%;
 	border-top-left-radius: 15px;
