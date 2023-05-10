@@ -89,6 +89,9 @@ p.last{
 img{
 	width:100%;
 }
+img.jukucho{
+	width:15%;
+}
 section.achievement{
 	display:flex;
 	justify-content: space-evenly;
