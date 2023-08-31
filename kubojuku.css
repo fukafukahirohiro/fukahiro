@@ -17,6 +17,16 @@ a{
 	color:#00bfff;
 	text-decoration: none;
 }
+#nomar{
+	margin:0;
+}
+#nomar-1{
+	margin:0;
+}
+#aisastu{
+	display:flex;
+	align-items: center;
+}
 #section-1{
 	margin:7% 0;
 }
@@ -36,15 +46,23 @@ a{
 	justify-content: space-between;
 }
 #section-5{
-	margin:0 15% 3% 15%;
+	margin:0 15%;
 }
-#nomar{
-	margin:0;
+#section-6{
+	margin:0 15% 7% 15%;
 }
-#aisastu{
+#shoukai{
 	display:flex;
-	align-items: center;
-	margin:3% 0 0 0;
+	align-items:center;
+	width:100%;
+	justify-content: space-around;
+}
+img.jukucho{
+	width:15%;
+}
+div.koushi{
+	width:20%;
+	text-align:center;
 }
 h1{
 	margin:0% 15% 5%;
@@ -89,9 +107,6 @@ p.last{
 }
 img{
 	width:100%;
-}
-img.jukucho{
-	width:15%;
 }
 section.achievement{
 	display:flex;
