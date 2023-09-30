@@ -1,0 +1,71 @@
+import tkinter as tk
+import random
+root = tk.Tk()
+root.title('はたあげゲーム')
+root.geometry("800x480")
+f_line=0;f_sum=0;f_point=0
+f_name=['しろ','あか']
+f_stat=[[False,False],[False,False]]#[[号令],[ボタン]]、[しろ、あか]
+f_mot=[['あげ','さげ'],['ないで、','て、'],['ない。','る。']]
+def click_button(event):#対応する色の状態を反転
+    global f_stat
+    cl_txt=event.widget['text']#押したボタンのテキスト
+    cl_bg=event.widget['bg']#押したボタンの背景色
+    if cl_txt == f_name[0]:
+        if cl_bg == 'gray':
+            f_stat[1][0]=1
+            but_w.config(bg='white')
+        else:
+            f_stat[1][0]=0
+            but_w.config(bg='gray')
+    else:
+        if cl_bg == 'gray':
+            f_stat[1][1]=1
+            but_r.config(bg='red')
+        else:
+            f_stat[1][1]=0
+            but_r.config(bg='gray')
+
+def repeat():
+    global f_line,f_stat,f_sum,f_point
+    f_line+=1
+    f_sum+=2
+    if f_stat[0][0]==f_stat[1][0]:#白が一致
+        f_point+=1
+    if f_stat[0][1]==f_stat[1][1]:#赤が一致
+        f_point+=1
+    #print(f_line,f_sum,f_point,f_point*100/f_sum)
+    if f_line > 200:
+        rep_end()
+    if f_line % 10 ==0:
+    #for i in range(10):
+        f_rand=random.randint(0,3)#1以下：しろ、２以上：あか、偶数：変化なし、奇数：変化
+        f_str=f_name[f_rand//2]+f_mot[0][f_stat[0][f_rand//2]]
+        if f_line%2==0:
+            f_str+=f_mot[1][f_rand % 2]
+        else:
+            f_str+=f_mot[2][f_rand % 2]
+        if f_rand % 2:
+            f_stat[0][f_rand//2]=not f_stat[0][f_rand//2]
+        #print(f_str)
+        label1.config(text=f_str)
+        label2.config(text=str(f'{f_point*100/f_sum:.1f}'))
+    label1.after(200,repeat)
+    
+def rep_end():
+    label1.config(text='終了。')
+    root.mainloop()
+    
+label1=tk.Label(root,text='はたあげゲーム！',font=('',64))
+label1.place(x=100,y=100)
+label2=tk.Label(root,text='',font=('',64))
+label2.place(x=100,y=200)
+
+but_w=tk.Button(root, text=f_name[0],font=('',24),bg="gray",fg='black')
+but_w.bind('<Button-1>', click_button)
+but_r=tk.Button(root, text=f_name[1],font=('',24),bg="gray",fg='black')
+but_r.bind('<Button-1>', click_button)
+but_w.place(x=100,y=350);but_r.place(x=500,y=350)
+label1.after(2000,repeat)
+root.mainloop()
+
