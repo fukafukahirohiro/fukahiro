@@ -7,18 +7,19 @@ root.title('はたあげゲーム')
 root.geometry("800x480")
 ser = serial.Serial("COM5",115200)
 count = 0
-point = 0
+point = 50
 y = 0
 data = ''
 def start(): 
     global count,point
     count = 0
-    point = 0
+    point = 43
+    button1.place(x=1000,y=5000)
     game()
 def game():
     global red,white,count,point,x,y
    
-    count += 1
+    count += 1    print("経過4")
     
     if count == 20:
         finish()
@@ -61,12 +62,12 @@ def 受信():
     time.sleep(0.1)
     print("x=", x, "linedata=", linedata, "y=", y,"count=", count)
     if x == linedata:
-        point += 6-y
+        point += (11-y)//2
         game()
     else:
-        if y != 5:
-            root.after(100,受信)
-        elif y == 5:
+        if y != 10:
+            root.after(50,受信)
+        elif y == 10:
             game()
 
 def finish():
@@ -75,16 +76,16 @@ def finish():
     label1.config(text=pointtag)
     label2.config(text="終了!")
     label3.config(text="")
-label1=tk.Label(root,text='STARTボタンを押してスタート',font=('',32))
-label1.place(x=100,y=150)
-label2=tk.Label(root,text="",font=('',32))
-label2.place(x=100,y=250)
+    button1.place(x=450,y=250)
+label1=tk.Label(root,text='STARTボタンを押してスタート',font=('',42))
+label1.place(x=0,y=150)
+label2=tk.Label(root,text="",font=('',42))
+label2.place(x=0,y=250)
 label3=tk.Label(root,text="",font=('',32))
 label3.place(x=500,y=250)
 button1 = tk.Button(root, text='START',font=('',32),command=start)
-button1.place(x=500,y=400)
+button1.place(x=500,y=250)
 #button2 = tk.Button(root, text='STOP',font=('',32))
 #button2.place(x=200,y=350)
 
 root.mainloop()
-
