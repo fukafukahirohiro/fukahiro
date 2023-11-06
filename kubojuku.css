@@ -108,6 +108,9 @@ p.last{
 img{
 	width:100%;
 }
+p > img{
+	border-radius: 10px;
+}
 section.achievement{
 	display:flex;
 	justify-content: space-evenly;
