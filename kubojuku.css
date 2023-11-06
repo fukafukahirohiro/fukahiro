@@ -108,7 +108,7 @@ p.last{
 img{
 	width:100%;
 }
-p > img{
+div > img{
 	border-radius: 10px;
 }
 section.achievement{
