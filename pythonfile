@@ -1,91 +1,351 @@
-import random
-import serial
 import tkinter as tk
-import time
-root = tk.Tk()
-root.title('はたあげゲーム')
-root.geometry("800x480")
-ser = serial.Serial("COM5",115200)
-count = 0
-point = 50
-y = 0
-data = ''
-def start(): 
-    global count,point
-    count = 0
-    point = 43
-    button1.place(x=1000,y=5000)
-    game()
-def game():
-    global red,white,count,point,x,y
-   
-    count += 1    print("経過4")
-    
-    if count == 20:
-        finish()
-    else:
-        listred = ["あげて、","さげないで、","さげて、","あげないで、"]
-        listwhite = ["あげる。","さげない。","さげる。","あげない。"]
-        x = random.randint(0,3)
-        #x = 0
-        if x == 0:
-            red = listred[random.randint(2,3)]
-            white = listwhite[random.randint(2,3)]
-        elif x == 1:
-            red = listred[random.randint(2,3)]
-            white = listwhite[random.randint(0,1)]
-        elif x == 2:
-            red = listred[random.randint(0,1)]
-            white = listwhite[random.randint(2,3)]
-        elif x == 3:
-            red =  listred[random.randint(0,1)]
-            white = listwhite[random.randint(0,1)]
-        rtag = "あか",red
-        wtag = "しろ",white
-        print("x=", x, rtag,wtag)
-        label1.config(text=rtag)
-        label2.config(text=wtag)
-        label3.config(text=point)
-        y = 0
-        label1.after(500,受信)
-        
-        root.mainloop()
-        print("mainloop2")
-def 受信():
-    
-    global point,x,y,count
-    y += 1
-    line = ser.readline()# 受信
-    line_data=line.strip().decode('UTF-8')
-    linedata = int(line_data)
-    x = int(x)
-    time.sleep(0.1)
-    print("x=", x, "linedata=", linedata, "y=", y,"count=", count)
-    if x == linedata:
-        point += (11-y)//2
-        game()
-    else:
-        if y != 10:
-            root.after(50,受信)
-        elif y == 10:
-            game()
+import datetime
+time_flag = 0
 
-def finish():
-    global point
-    pointtag = "Point：", point
-    label1.config(text=pointtag)
-    label2.config(text="終了!")
-    label3.config(text="")
-    button1.place(x=450,y=250)
-label1=tk.Label(root,text='STARTボタンを押してスタート',font=('',42))
-label1.place(x=0,y=150)
-label2=tk.Label(root,text="",font=('',42))
-label2.place(x=0,y=250)
-label3=tk.Label(root,text="",font=('',32))
-label3.place(x=500,y=250)
-button1 = tk.Button(root, text='START',font=('',32),command=start)
-button1.place(x=500,y=250)
-#button2 = tk.Button(root, text='STOP',font=('',32))
-#button2.place(x=200,y=350)
+def owner(arrive_type1, arrive_platform1, arrive_time1, arrive_destination1, arrive_info1,arrive_type2, arrive_platform2, arrive_time2, arrive_destination2, arrive_info2,arrive_type3, arrive_platform3, arrive_time3, arrive_destination3, arrive_info3):
+    print("g")
+    owner_win = tk.Toplevel()
+    owner_win.title("管理者メニュー")
+    owner_win.geometry("1000x500")
 
-root.mainloop()
+    owner_win.update_idletasks()
+    owner_win_width = owner_win.winfo_width()
+    owner_win_height = owner_win.winfo_height()
+
+    owner_title = tk.Label(owner_win, text="管理者メニュー", font=("TkFixedFont", 60))
+    owner_next = tk.Button(owner_win, text="進める", font=("TkFixedFont", 50), command= lambda: next(arrive_type1, arrive_platform1, arrive_time1, arrive_destination1, arrive_info1,arrive_type2, arrive_platform2, arrive_time2, arrive_destination2, arrive_info2,arrive_type3, arrive_platform3, arrive_time3, arrive_destination3, arrive_info3))
+    owner_add = tk.Button(owner_win, text="追加", font=("TkFixedFont", 50))
+    owner_registration = tk.Button(owner_win, text="登録", font=("TkFixedFont", 50))
+    owner_change = tk.Button(owner_win, text="変更", font=("TkFixedFont", 50), command= lambda: change(arrive_type1, arrive_platform1, arrive_time1, arrive_destination1, arrive_info1,arrive_type2, arrive_platform2, arrive_time2, arrive_destination2, arrive_info2,arrive_type3, arrive_platform3, arrive_time3, arrive_destination3, arrive_info3))
+
+    owner_title.pack(pady=10)
+    owner_next.place(x=owner_win_width*0.1, y=owner_win_height*0.3)
+    owner_add.place(x=owner_win_width*0.7, y=owner_win_height*0.3)
+    owner_registration.place(x=owner_win_width*0.1, y=owner_win_height*0.7)
+    owner_change.place(x=owner_win_width*0.7, y=owner_win_height*0.7)
+
+
+def next(arrive_type1,arrive_platform1,arrive_time1,arrive_destination1,arrive_info1,arrive_type2,arrive_platform2,arrive_time2,arrive_destination2,arrive_info2,arrive_type3,arrive_platform3,arrive_time3,arrive_destination3,arrive_info3):
+    arrive_type1.config(text=arrive_type2.cget("text"), bg=arrive_type2.cget("bg"))
+    arrive_platform1.config(text=arrive_platform2.cget("text"))
+    arrive_time1.config(text=arrive_time2.cget("text"))
+    arrive_destination1.config(text=arrive_destination2.cget("text"))
+    arrive_info1.config(text=arrive_info2.cget("text"))
+
+    arrive_type2.config(text=arrive_type3.cget("text"), bg=arrive_type3.cget("bg"))
+    arrive_platform2.config(text=arrive_platform3.cget("text"))
+    arrive_time2.config(text=arrive_time3.cget("text"))
+    arrive_destination2.config(text=arrive_destination3.cget("text"))
+    arrive_info2.config(text=arrive_info3.cget("text"))
+
+    arrive_type3.config(text="", bg="black")
+    arrive_platform3.config(text="")
+    arrive_time3.config(text="")
+    arrive_destination3.config(text="")
+    arrive_info3.config(text="")
+
+def change(arrive_type1,arrive_platform1,arrive_time1,arrive_destination1,arrive_info1,arrive_type2,arrive_platform2,arrive_time2,arrive_destination2,arrive_info2,arrive_type3,arrive_platform3,arrive_time3,arrive_destination3,arrive_info3):
+    change_win = tk.Toplevel()
+    change_win.title("変更")
+
+
+    #１段目
+    text_arrive_type1 = tk.Label(change_win, text="種別１", font=("TkFixedFont", 18))
+    text_arrive_type1.grid(row=0, column=1, padx=10)
+    entry_arrive_type1 = tk.Entry(change_win, font=("Helvetica", 16))
+    entry_arrive_type1.grid(row=1, column=1, padx=10)
+    entry_arrive_type1.insert(0, arrive_type1.cget("text"))
+
+    text_arrive_platform1 = tk.Label(change_win, text="のりば１", font=("TkFixedFont", 18))
+    text_arrive_platform1.grid(row=0, column=2, padx=10)
+    entry_arrive_platform1 = tk.Entry(change_win, font=("Helvetica", 16))
+    entry_arrive_platform1.grid(row=1, column=2, padx=10)
+    entry_arrive_platform1.insert(0, arrive_platform1.cget("text"))
+
+    text_arrive_time1 = tk.Label(change_win, text="時刻１", font=("TkFixedFont", 18))
+    text_arrive_time1.grid(row=0, column=3, padx=10)
+    entry_arrive_time1 = tk.Entry(change_win, font=("Helvetica", 16))
+    entry_arrive_time1.grid(row=1, column=3, padx=10)
+    entry_arrive_time1.insert(0, arrive_time1.cget("text"))
+
+    text_arrive_destination1 = tk.Label(change_win, text="行き先１", font=("TkFixedFont", 18))
+    text_arrive_destination1.grid(row=0, column=4, padx=10)
+    entry_arrive_destination1 = tk.Entry(change_win, font=("Helvetica", 16))
+    entry_arrive_destination1.grid(row=1, column=4, padx=10)
+    entry_arrive_destination1.insert(0, arrive_destination1.cget("text"))
+
+    text_arrive_info1 = tk.Label(change_win, text="備考１", font=("TkFixedFont", 18))
+    text_arrive_info1.grid(row=0, column=5, padx=10)
+    entry_arrive_info1 = tk.Entry(change_win, font=("Helvetica", 16))
+    entry_arrive_info1.grid(row=1, column=5, padx=10)
+    entry_arrive_info1.insert(0, arrive_info1.cget("text"))
+
+    tk.Label(change_win, text="", font=("TkFixedFont", 18)).grid(row=2, column=0, columnspan=6, pady=20)
+
+    #２段目
+    text_arrive_type2 = tk.Label(change_win, text="種別2", font=("TkFixedFont", 18))
+    text_arrive_type2.grid(row=3, column=1, padx=10)
+    entry_arrive_type2 = tk.Entry(change_win, font=("Helvetica", 16))
+    entry_arrive_type2.grid(row=4, column=1, padx=10)
+    entry_arrive_type2.insert(0, arrive_type2.cget("text"))
+
+    text_arrive_platform2 = tk.Label(change_win, text="のりば2", font=("TkFixedFont", 18))
+    text_arrive_platform2.grid(row=3, column=2, padx=10)
+    entry_arrive_platform2 = tk.Entry(change_win, font=("Helvetica", 16))
+    entry_arrive_platform2.grid(row=4, column=2, padx=10)
+    entry_arrive_platform2.insert(0, arrive_platform2.cget("text"))
+
+    text_arrive_time2 = tk.Label(change_win, text="時刻2", font=("TkFixedFont", 18))
+    text_arrive_time2.grid(row=3, column=3, padx=10)
+    entry_arrive_time2 = tk.Entry(change_win, font=("Helvetica", 16))
+    entry_arrive_time2.grid(row=4, column=3, padx=10)
+    entry_arrive_time2.insert(0, arrive_time2.cget("text"))
+
+    text_arrive_destination2 = tk.Label(change_win, text="行き先2", font=("TkFixedFont", 18))
+    text_arrive_destination2.grid(row=3, column=4, padx=10)
+    entry_arrive_destination2 = tk.Entry(change_win, font=("Helvetica", 16))
+    entry_arrive_destination2.grid(row=4, column=4, padx=10)
+    entry_arrive_destination2.insert(0, arrive_destination2.cget("text"))
+
+    text_arrive_info2 = tk.Label(change_win, text="備考2", font=("TkFixedFont", 18))
+    text_arrive_info2.grid(row=3, column=5, padx=10)
+    entry_arrive_info2 = tk.Entry(change_win, font=("Helvetica", 16))
+    entry_arrive_info2.grid(row=4, column=5, padx=10)
+    entry_arrive_info2.insert(0, arrive_info2.cget("text"))
+
+    tk.Label(change_win, text="", font=("TkFixedFont", 18)).grid(row=5, column=0, columnspan=6, pady=20)
+
+    #３段目
+    text_arrive_type3 = tk.Label(change_win, text="種別3", font=("TkFixedFont", 18))
+    text_arrive_type3.grid(row=6, column=1, padx=10)
+    entry_arrive_type3 = tk.Entry(change_win, font=("Helvetica", 16))
+    entry_arrive_type3.grid(row=7, column=1, padx=10)
+    entry_arrive_type3.insert(0, arrive_type3.cget("text"))
+
+    text_arrive_platform3 = tk.Label(change_win, text="のりば3", font=("TkFixedFont", 18))
+    text_arrive_platform3.grid(row=6, column=2, padx=10)
+    entry_arrive_platform3 = tk.Entry(change_win, font=("Helvetica", 16))
+    entry_arrive_platform3.grid(row=7, column=2, padx=10)
+    entry_arrive_platform3.insert(0, arrive_platform3.cget("text"))
+
+    text_arrive_time3 = tk.Label(change_win, text="時刻3", font=("TkFixedFont", 18))
+    text_arrive_time3.grid(row=6, column=3, padx=10)
+    entry_arrive_time3 = tk.Entry(change_win, font=("Helvetica", 16))
+    entry_arrive_time3.grid(row=7, column=3, padx=10)
+    entry_arrive_time3.insert(0, arrive_time3.cget("text"))
+
+    text_arrive_destination3 = tk.Label(change_win, text="行き先3", font=("TkFixedFont", 18))
+    text_arrive_destination3.grid(row=6, column=4, padx=10)
+    entry_arrive_destination3 = tk.Entry(change_win, font=("Helvetica", 16))
+    entry_arrive_destination3.grid(row=7, column=4, padx=10)
+    entry_arrive_destination3.insert(0, arrive_destination3.cget("text"))
+
+    text_arrive_info3 = tk.Label(change_win, text="備考3", font=("TkFixedFont", 18))
+    text_arrive_info3.grid(row=6, column=5, padx=10)
+    entry_arrive_info3 = tk.Entry(change_win, font=("Helvetica", 16))
+    entry_arrive_info3.grid(row=7, column=5, padx=10)
+    entry_arrive_info3.insert(0, arrive_info3.cget("text"))
+
+    tk.Label(change_win, text="", font=("TkFixedFont", 18)).grid(row=8, column=0, columnspan=6, pady=20)
+
+    def reroad():
+        entry_arrive_type1.delete(0, tk.END)
+        entry_arrive_type1.insert(0, arrive_type1.cget("text"))
+        entry_arrive_platform1.delete(0, tk.END)
+        entry_arrive_platform1.insert(0, arrive_platform1.cget("text"))
+        entry_arrive_time1.delete(0, tk.END)
+        entry_arrive_time1.insert(0, arrive_time1.cget("text"))
+        entry_arrive_destination1.delete(0, tk.END)
+        entry_arrive_destination1.insert(0, arrive_destination1.cget("text"))
+        entry_arrive_info1.delete(0, tk.END)
+        entry_arrive_info1.insert(0, arrive_info1.cget("text"))
+
+        # 2つ目の入力欄
+        entry_arrive_type2.delete(0, tk.END)
+        entry_arrive_type2.insert(0, arrive_type2.cget("text"))
+        entry_arrive_platform2.delete(0, tk.END)
+        entry_arrive_platform2.insert(0, arrive_platform2.cget("text"))
+        entry_arrive_time2.delete(0, tk.END)
+        entry_arrive_time2.insert(0, arrive_time2.cget("text"))
+        entry_arrive_destination2.delete(0, tk.END)
+        entry_arrive_destination2.insert(0, arrive_destination2.cget("text"))
+        entry_arrive_info2.delete(0, tk.END)
+        entry_arrive_info2.insert(0, arrive_info2.cget("text"))
+
+        # 3つ目の入力欄
+        entry_arrive_type3.delete(0, tk.END)
+        entry_arrive_type3.insert(0, arrive_type3.cget("text"))
+        entry_arrive_platform3.delete(0, tk.END)
+        entry_arrive_platform3.insert(0, arrive_platform3.cget("text"))
+        entry_arrive_time3.delete(0, tk.END)
+        entry_arrive_time3.insert(0, arrive_time3.cget("text"))
+        entry_arrive_destination3.delete(0, tk.END)
+        entry_arrive_destination3.insert(0, arrive_destination3.cget("text"))
+        entry_arrive_info3.delete(0, tk.END)
+        entry_arrive_info3.insert(0, arrive_info3.cget("text"))
+
+
+    def apply_changes():
+        arrive_type1.config(text=entry_arrive_type1.get())
+        arrive_platform1.config(text=entry_arrive_platform1.get())
+        arrive_time1.config(text=entry_arrive_time1.get())
+        arrive_destination1.config(text=entry_arrive_destination1.get())
+        arrive_info1.config(text=entry_arrive_info1.get())
+        if entry_arrive_type1.get() == "普通":
+            arrive_type1.config(bg="blue")
+        elif entry_arrive_type1.get() == "特急":
+            arrive_type1.config(bg="red")
+        elif entry_arrive_type1.get() == "快速":
+            arrive_type1.config(bg="green")
+        elif entry_arrive_type1.get() == "臨時":
+            arrive_type1.config(bg="orange")
+        else:
+            arrive_type1.config(bg="black")
+
+        arrive_type2.config(text=entry_arrive_type2.get())
+        arrive_platform2.config(text=entry_arrive_platform2.get())
+        arrive_time2.config(text=entry_arrive_time2.get())
+        arrive_destination2.config(text=entry_arrive_destination2.get())
+        arrive_info2.config(text=entry_arrive_info2.get())
+        if entry_arrive_type2.get() == "普通":
+            arrive_type2.config(bg="blue")
+        elif entry_arrive_type2.get() == "特急":
+            arrive_type2.config(bg="red")
+        elif entry_arrive_type2.get() == "快速":
+            arrive_type2.config(bg="green")
+        elif entry_arrive_type2.get() == "臨時":
+            arrive_type2.config(bg="orange")
+        else:
+            arrive_type2.config(bg="black")
+
+        arrive_type3.config(text=entry_arrive_type3.get())
+        arrive_platform3.config(text=entry_arrive_platform3.get())
+        arrive_time3.config(text=entry_arrive_time3.get())
+        arrive_destination3.config(text=entry_arrive_destination3.get())
+        arrive_info3.config(text=entry_arrive_info3.get())
+        if entry_arrive_type3.get() == "普通":
+            arrive_type3.config(bg="blue")
+        elif entry_arrive_type3.get() == "特急":
+            arrive_type3.config(bg="red")
+        elif entry_arrive_type3.get() == "快速":
+            arrive_type3.config(bg="green")
+        elif entry_arrive_type3.get() == "臨時":
+            arrive_type3.config(bg="orange")
+        else:
+            arrive_type3.config(bg="black")
+
+    change_button = tk.Button(change_win, text="変更", font=("TkFixedFont", 20), command=apply_changes)
+    change_button.grid(row=9, column=3, padx=10)
+    reroad_button = tk.Button(change_win, text="更新", font=("TkFixedFont", 20), command=reroad)
+    reroad_button.grid(row=9, column=4, padx=10)
+
+
+
+def gettime():
+    now = datetime.datetime.now()
+    return now.strftime("%H:%M")
+
+def update_time(label1):
+    nowtime = gettime()
+    label1.config(text=nowtime)
+    label1.after(1000, update_time, label1)  # 1000ms (1秒) ごとに更新
+
+def main_window():
+    root = tk.Tk()
+    nowtime = gettime()
+    
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+    
+    root.title("時刻表")
+    root.geometry(f"{screen_width}x{screen_height}+-10+-5")
+    
+    gray_height = int(screen_height * 0.15)
+    black_height = int(screen_height * 0.85)
+    
+    header = tk.Frame(root, bg="lightgray", height=gray_height)
+    fotter = tk.Frame(root, bg="black", height=black_height)
+    header.pack(fill="x")
+    fotter.pack(fill="x")
+
+#ヘッダー
+    arrive_type = tk.Label(text="種別", font=("TkFixedFont", 40,), fg="white", bg="black")
+    arrive_platform = tk.Label(text="のりば", font=("TkFixedFont", 40), fg="white", bg="black")
+    arrive_time = tk.Label(text="時刻", font=("TkFixedFont", 40), fg="white", bg="black")
+    arrive_destination = tk.Label(text="行き先", font=("TkFixedFont", 40), fg="white", bg="black")
+    arrive_info = tk.Label(text="備考", font=("TkFixedFont", 40), fg="white", bg="black")
+
+#次発
+    arrive_type1 = tk.Label(text="普通", font=("TkFixedFont", 60,), fg="white", bg="blue")
+    arrive_platform1 = tk.Label(text="１番線", font=("TkFixedFont", 60), fg="white", bg="black")
+    arrive_time1 = tk.Label(text="06:51", font=("TkFixedFont", 60), fg="white", bg="black")
+    arrive_destination1 = tk.Label(text="東京", font=("TkFixedFont", 60), fg="white", bg="black")
+    arrive_info1 = tk.Label(text="10両", font=("TkFixedFont", 60), fg="white", bg="black")
+
+#次々発
+    arrive_type2 = tk.Label(text="特急", font=("TkFixedFont", 60,), fg="white", bg="red")
+    arrive_platform2 = tk.Label(text="２番線", font=("TkFixedFont", 60), fg="white", bg="black")
+    arrive_time2 = tk.Label(text="07:10", font=("TkFixedFont", 60), fg="white", bg="black")
+    arrive_destination2 = tk.Label(text="品川", font=("TkFixedFont", 60), fg="white", bg="black")
+    arrive_info2 = tk.Label(text="10両　ひたち4号", font=("TkFixedFont", 60), fg="white", bg="black")
+
+#次々々発
+    arrive_type3 = tk.Label(text="快速", font=("TkFixedFont", 60,), fg="white", bg="green")
+    arrive_platform3 = tk.Label(text="１番線", font=("TkFixedFont", 60), fg="white", bg="black")
+    arrive_time3 = tk.Label(text="07:17", font=("TkFixedFont", 60), fg="white", bg="black")
+    arrive_destination3 = tk.Label(text="大津港", font=("TkFixedFont", 60), fg="white", bg="black")
+    arrive_info3 = tk.Label(text="10両　あさぎ2号", font=("TkFixedFont", 60), fg="white", bg="black")
+
+
+    label1 = tk.Label(header, text="時刻表", font=("TkFixedFont", 70), bg="lightgray")
+    label2 = tk.Label(header, text=nowtime, font=("TkFixedFont", 80), bg="lightgray")
+    label1.place(x=screen_width*0.07, y=gray_height//4)
+    label2.place(x=screen_width*0.80, y=gray_height//4)
+
+    x_type = screen_width * 0.07
+    x_platform = screen_width * 0.22
+    x_time = screen_width * 0.38
+    x_destination = screen_width * 0.52
+    x_info = screen_width * 0.68
+
+    y_header = screen_height * 0.2
+    y_arrive1 = screen_height * 0.35
+    y_arrive2 = screen_height * 0.50
+    y_arrive3 = screen_height * 0.65
+
+#ヘッダーplace
+    arrive_type.place(x=x_type, y=y_header)
+    arrive_platform.place(x=x_platform, y=y_header)
+    arrive_time.place(x=x_time, y=y_header)
+    arrive_destination.place(x=x_destination, y=y_header)
+    arrive_info.place(x=x_info, y=y_header)
+
+#次発place
+    arrive_type1.place(x=x_type, y=y_arrive1)
+    arrive_platform1.place(x=x_platform, y=y_arrive1)
+    arrive_time1.place(x=x_time, y=y_arrive1)
+    arrive_destination1.place(x=x_destination, y=y_arrive1)
+    arrive_info1.place(x=x_info, y=y_arrive1)
+
+#次々発place
+    arrive_type2.place(x=x_type, y=y_arrive2)
+    arrive_platform2.place(x=x_platform, y=y_arrive2)
+    arrive_time2.place(x=x_time, y=y_arrive2)
+    arrive_destination2.place(x=x_destination, y=y_arrive2)
+    arrive_info2.place(x=x_info, y=y_arrive2)
+
+#次々々発place
+    arrive_type3.place(x=x_type, y=y_arrive3)
+    arrive_platform3.place(x=x_platform, y=y_arrive3)
+    arrive_time3.place(x=x_time, y=y_arrive3)
+    arrive_destination3.place(x=x_destination, y=y_arrive3)
+    arrive_info3.place(x=x_info, y=y_arrive3)
+
+    update_time(label2)
+    print("a")
+    root.after(3000, lambda: owner(arrive_type1, arrive_platform1, arrive_time1, arrive_destination1, arrive_info1, arrive_type2, arrive_platform2, arrive_time2, arrive_destination2, arrive_info2,
+        arrive_type3, arrive_platform3, arrive_time3, arrive_destination3, arrive_info3))
+    root.mainloop()
+
+print("1")
+main_window()
